@@ -17,7 +17,7 @@ var gImgs = [{
 }]
 
 var gMeme = {
-    selectedImgId: 5,
+    selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [{
         txt: 'Hi there',
@@ -88,5 +88,6 @@ function createTextLine(x = 0, y = 0) {
     }
 
     gMeme.lines.push(line)
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
     return line
 }

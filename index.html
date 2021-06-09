@@ -17,9 +17,15 @@
         </canvas>
     </section>
     <input name="meme-line" type="text" onchange="setText(this)">
-    <button onclick="adjustFontSize(1)">+</button>
-    <button onclick="adjustFontSize(-1)">-</button>
-    <button onclick="addTextLine()">+</button>
+    <button onclick="onAdjustFontSize(1)">+</button>
+    <button onclick="onAdjustFontSize(-1)">-</button>
+    <button onclick="onAddTextLine()">+</button>
+    <button onclick="onMoveLine(-1)">Up</button>
+    <button onclick="onMoveLine(1)">Down</button>
+    <button onclick="onAlignLine('left')">Left</button>
+    <button onclick="onAlignLine('center')">Center</button>
+    <button onclick="onAlignLine('right')">Right</button>
+    <button onclick="onSwitchLine()">Switch</button>
     <!-- <button onclick="removeTextLine()">-</button> -->
     <section class="gallery grid-auto">
         <img src="img/2.jpg" onclick="setImage(this)" alt="">

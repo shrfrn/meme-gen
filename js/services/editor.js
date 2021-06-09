@@ -7,18 +7,19 @@ function initCanvas(){
     gCtx.lineWidth = 2
 }
 
-function renderMeme(src) {
+function renderMeme() {
     
+    var meme = getCurrMeme()
     var img = new Image()
-    img.src = src;
+    img.src = gImgs[meme.selectedImgId].url;
 
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height) 
-        drawText('Hello', 150,150)
+        _drawText('Hello', 150,150)
     }
 }
 
-function drawText(text, x, y) {
+function _drawText(text, x, y) {
     var meme = getCurrMeme()
 
     meme.lines.forEach(line => {
@@ -32,16 +33,5 @@ function drawText(text, x, y) {
         gCtx.fillText(line.txt, line.x, line.y)
         gCtx.strokeText(line.txt, line.x, line.y)
     })
-
 }
 
-function adjustFontSize(diff){
-    var meme = getCurrMeme()
-    meme.lines[0].size += diff
-    drawText(meme.lines[0].txt, 150, 150)
-}
-
-function addTextLine(){
-    var lineIdx = createTextLine(200, 200)
-    renderMeme(gImgs[0].url);
-}

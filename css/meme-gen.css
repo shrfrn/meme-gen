@@ -1,0 +1,11 @@
+@font-face{
+    font-family: Impact;
+    src: url(../fonts/impact.ttf);
+}
+body{
+    background-color: lightgray;
+}
+
+.editor {
+    margin: 0 auto;
+}

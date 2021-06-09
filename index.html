@@ -11,35 +11,36 @@
     <header>
         <h1>Meme Gen!!!</h1>
     </header>
-    <section class="editor flex-xy-center">
-        <canvas id="canvas" width="450px" height="450px">
-            'HTML 5 Canvas support required...'
-        </canvas>
+    <section class="editor">
+
+        <section class="canvas flex-xy-center">
+            <canvas id="canvas" width="450px" height="450px">
+                'HTML 5 Canvas support required...'
+            </canvas>
+        </section>
+        
+        <section class="editor-controls">
+            <input name="curr-meme-line" type="text" onchange="setText(this)">
+            <button onclick="onAdjustFontSize(1)">+</button>
+            <button onclick="onAdjustFontSize(-1)">-</button>
+            <button onclick="onAddTextLine()">+</button>
+            <button onclick="onMoveLine(-1)">Up</button>
+            <button onclick="onMoveLine(1)">Down</button>
+            <button onclick="onAlignLine('left')">Left</button>
+            <button onclick="onAlignLine('center')">Center</button>
+            <button onclick="onAlignLine('right')">Right</button>
+            <button onclick="onSwitchLine()">Switch</button>
+        </section>
+
     </section>
-    <input name="meme-line" type="text" onchange="setText(this)">
-    <button onclick="onAdjustFontSize(1)">+</button>
-    <button onclick="onAdjustFontSize(-1)">-</button>
-    <button onclick="onAddTextLine()">+</button>
-    <button onclick="onMoveLine(-1)">Up</button>
-    <button onclick="onMoveLine(1)">Down</button>
-    <button onclick="onAlignLine('left')">Left</button>
-    <button onclick="onAlignLine('center')">Center</button>
-    <button onclick="onAlignLine('right')">Right</button>
-    <button onclick="onSwitchLine()">Switch</button>
-    <!-- <button onclick="removeTextLine()">-</button> -->
-    <section class="gallery grid-auto">
-        <img src="img/2.jpg" onclick="setImage(this)" alt="">
-        <img src="img/3.jpg" onclick="setImage(this)" alt="">
-        <img src="img/4.jpg" onclick="setImage(this)" alt="">
-        <img src="img/5.jpg" onclick="setImage(this)" alt="">
-        <img src="img/6.jpg" onclick="setImage(this)" alt="">
-        <img src="img/7.jpg" onclick="setImage(this)" alt="">
-        <img src="img/8.jpg" onclick="setImage(this)" alt="">
-        <img src="img/9.jpg" onclick="setImage(this)" alt="">
+
+    <section class="gallery">
     </section>
+
     <script src="js/services/storage.js"></script>
     <script src="js/services/meme-service.js"></script>
-    <script src="js/services/editor.js"></script>
+    <script src="js/services/canvas.js"></script>
     <script src="js/mem-gen.js"></script>
+
 </body>
 </html>

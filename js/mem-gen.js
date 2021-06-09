@@ -1,11 +1,10 @@
 'use strict';
 
 function init(){
-    console.log('init!');
-    initCanvas();
-    renderMeme(gImgs[0].url)
-    console.log(gMeme.lines[0].txt);
-    // drawText(gMeme.lines[0].txt, 0, 150)
+    initCanvas()
+    initGallery()
+    renderMeme()
+    _loadCurrLineToInputEl()
 }
 
 function setText(elInput){
@@ -18,7 +17,10 @@ function setText(elInput){
 }
 
 function setImage(elImg){
-    renderMeme(elImg.src)
+
+    var imgId = elImg.dataset.id
+    setCurrImg(imgId)
+    renderMeme()
 }
 
 function onAdjustFontSize(diff){
@@ -32,6 +34,7 @@ function onAdjustFontSize(diff){
 function onAddTextLine(){
     var lineIdx = createTextLine(200, 200)
     renderMeme(gImgs[0].url);
+    _loadCurrLineToInputEl()
 }
 
 function onMoveLine(dir){
@@ -58,4 +61,27 @@ function onSwitchLine(){
     }
 
     renderMeme()
+    _loadCurrLineToInputEl()
+}
+
+function _loadCurrLineToInputEl(){
+    var meme = getCurrMeme();
+    var currLine = meme.selectedLineIdx
+    var elInput = document.querySelector('[name=curr-meme-line]');
+
+    elInput.value = meme.lines[currLine].txt
+}
+
+function initGallery(){
+
+    var strHTML = ''
+    var imgs = getImgs()
+    var elGallery = document.querySelector('.gallery');
+
+    imgs.forEach(img => {
+        strHTML += `\t<img data-id="${img.id}" src="${img.url}" onclick="setImage(this)" alt=""></img>\n`
+    })
+    // <img src="img/2.jpg" onclick="setImage(this)" alt="">
+
+    elGallery.innerHTML = strHTML
 }

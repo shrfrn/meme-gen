@@ -64,6 +64,19 @@ function onSwitchLine(){
     _loadCurrLineToInputEl()
 }
 
+function downloadImg(){
+    const data = gCanvas.toDataURL()
+    var elLink = document.querySelector('#download-link');
+    elLink.href = data
+    elLink.download = 'my-img.jpg'
+}
+
+// function downloadImg(elLink){
+//     const data = gCanvas.toDataURL()
+//     elLink.href = data
+//     elLink.download = 'my-img.jpg'
+// }
+
 function _loadCurrLineToInputEl(){
     var meme = getCurrMeme();
     var currLine = meme.selectedLineIdx

@@ -13,7 +13,7 @@ var gKeywords = { 'happy': 12, 'funny puk': 1 }
 var gImgs = [
     {
         id: "2",
-        url: '../../img/2.jpg',
+        url: './../../img/2.jpg',
         keywords: ['happy']
     },
     {

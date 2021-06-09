@@ -10,7 +10,14 @@ body{
     font-family: sans-serif;
     background-color: lightgray;
 }
-
+a{
+    text-decoration: none;
+    color: black;
+}
+a:visited{
+    text-decoration: none;
+    color: black;
+}
 .editor {
     margin: 40px auto;
 }

@@ -18,7 +18,6 @@ function renderMeme() {
     })
 
     if(!currImg) return
-    
     img.src = currImg.url;
 
     img.onload = () => {
@@ -36,24 +35,33 @@ function _drawText(text, x, y) {
         if(currLine === idx){
             _drawRect(line.x, line.y)
         }   
+
         gCtx.strokeStyle = line.stroke
         gCtx.fillStyle = line.fill
         gCtx.txt = text
         gCtx.font = `${line.size}px Arial`
         gCtx.textAlign = line.align
-        console.log(text, x, y);
-        gCtx.fillText(line.txt, line.x, line.y)
-        gCtx.strokeText(line.txt, line.x, line.y)
+
+        var x = _getX(line.align)
+        gCtx.fillText(line.txt, x, line.y)
+        gCtx.strokeText(line.txt, x, line.y)
         
     })
 }
 
+function _getX(align){
+    switch (align) {
+        case 'left': return 10
+        case 'center': return gCanvas.width / 2
+        case 'right': return gCanvas.width - 10
+    }
+}
 function _drawRect(x, y) {
     gCtx.beginPath()
-    gCtx.rect(x, y, 300, -40)
+    gCtx.rect(6, y + 3, gCanvas.width - 12, -40)
     gCtx.fillStyle = 'orange'
     gCtx.globalAlpha = 0.1
-    gCtx.fillRect(x, y, 300, -40)
+    gCtx.fillRect(6, y + 3, gCanvas.width - 12, -40)
     gCtx.strokeStyle = 'black'
     gCtx.stroke()
     gCtx.globalAlpha = 1

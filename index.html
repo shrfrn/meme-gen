@@ -11,14 +11,27 @@
     <header>
         <h1>Meme Gen!!!</h1>
     </header>
-    <section class="editor">
+    <section class="editor flex-xy-center">
         <canvas id="canvas" width="450px" height="450px">
             'HTML 5 Canvas support required...'
         </canvas>
     </section>
-    <section class="gallery">
-
+    <input name="meme-line" type="text" onchange="setText(this)">
+    <button onclick="adjustFontSize(1)">+</button>
+    <button onclick="adjustFontSize(-1)">-</button>
+    <button onclick="addTextLine()">+</button>
+    <!-- <button onclick="removeTextLine()">-</button> -->
+    <section class="gallery grid-auto">
+        <img src="img/2.jpg" onclick="setImage(this)" alt="">
+        <img src="img/3.jpg" onclick="setImage(this)" alt="">
+        <img src="img/4.jpg" onclick="setImage(this)" alt="">
+        <img src="img/5.jpg" onclick="setImage(this)" alt="">
+        <img src="img/6.jpg" onclick="setImage(this)" alt="">
+        <img src="img/7.jpg" onclick="setImage(this)" alt="">
+        <img src="img/8.jpg" onclick="setImage(this)" alt="">
+        <img src="img/9.jpg" onclick="setImage(this)" alt="">
     </section>
+    <script src="js/services/storage.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/editor.js"></script>
     <script src="js/mem-gen.js"></script>

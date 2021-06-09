@@ -2,10 +2,41 @@
     font-family: Impact;
     src: url(../fonts/impact.ttf);
 }
+
+* {
+    box-sizing: border-box;
+}
 body{
+    font-family: sans-serif;
     background-color: lightgray;
 }
 
 .editor {
     margin: 0 auto;
+}
+
+/* Helper classes */
+
+.clean-list{
+    list-style-type: none;
+    margin: 0;
+}
+.clean-link{
+    text-decoration: none;
+    color: black;
+}
+.flex-dir-column{
+    flex-direction: column;
+}
+
+.flex-xy-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-auto {
+    display: grid;
+    grid-auto-rows: minmax(300px, 1fr);
+    grid-auto-columns: minmax(300px, 1fr);
 }

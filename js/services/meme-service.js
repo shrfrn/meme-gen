@@ -13,47 +13,47 @@ var gKeywords = { 'happy': 12, 'funny puk': 1 }
 var gImgs = [
     {
         id: "2",
-        url: './../../img/2.jpg',
+        url: 'img/2.jpg',
         keywords: ['happy']
     },
     {
         id: "3",
-        url: '../../img/3.jpg',
+        url: 'img/3.jpg',
         keywords: ['happy']
     },
     {
         id: "4",
-        url: '../../img/4.jpg',
+        url: 'img/4.jpg',
         keywords: ['happy']
     },
     {
         id: "5",
-        url: '../../img/5.jpg',
+        url: 'img/5.jpg',
         keywords: ['happy']
     },
     {
         id: "6",
-        url: '../../img/6.jpg',
+        url: 'img/6.jpg',
         keywords: ['happy']
     },
     {
         id: "7",
-        url: '../../img/7.jpg',
+        url: 'img/7.jpg',
         keywords: ['happy']
     },
     {
         id: "8",
-        url: '../../img/8.jpg',
+        url: 'img/8.jpg',
         keywords: ['happy']
     },
     {
         id: "9",
-        url: '../../img/9.jpg',
+        url: 'img/9.jpg',
         keywords: ['happy']
     },
     {
         id: "1",
-        url: '../../img/1.jpg',
+        url: 'img/1.jpg',
         keywords: ['happy']
     },
 ]
@@ -62,7 +62,7 @@ var gMeme = {
     selectedImgId: 0,
     selectedLineIdx: 0,
     lines: [{
-        txt: 'Hi there',
+        txt: DEFAULT_TEXT,
         size: DEFAULT_FONT_SIZE,
         align: DEFAULT_ALIGNMENT,
         fill: DEFAULT_FILL,
@@ -70,15 +70,16 @@ var gMeme = {
         x: 50,
         y: 50,
     },
-    {
-        txt: 'Keep at it!',
-        size: DEFAULT_FONT_SIZE,
-        align: DEFAULT_ALIGNMENT,
-        fill: DEFAULT_FILL,
-        stroke: DEFAULT_STROKE,
-        x: 100,
-        y: 100,
-    }]
+    // {
+    //     txt: 'Keep at it!',
+    //     size: DEFAULT_FONT_SIZE,
+    //     align: DEFAULT_ALIGNMENT,
+    //     fill: DEFAULT_FILL,
+    //     stroke: DEFAULT_STROKE,
+    //     x: 100,
+    //     y: 100,
+    // }
+]
 }
 
 function getImgs(){

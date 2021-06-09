@@ -56,7 +56,7 @@ function _getX(align){
         case 'right': return gCanvas.width - 10
     }
 }
-function _drawRect(x, y) {
+function _drawRect(x, y) {   // Not using x here...
     gCtx.beginPath()
     gCtx.rect(6, y + 3, gCanvas.width - 12, -40)
     gCtx.fillStyle = 'orange'

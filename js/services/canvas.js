@@ -4,7 +4,7 @@ var gCtx = null
 function initCanvas(){
     gCanvas = document.querySelector('#canvas');
     gCtx = gCanvas.getContext('2d');
-    gCtx.lineWidth = 2
+    gCtx.lineWidth = 1
 }
 
 function renderMeme() {
@@ -25,6 +25,8 @@ function renderMeme() {
         _drawText('Hello', 150,150)
     }
 }
+
+// Private functions.
 
 function _drawText(text, x, y) {
     var meme = getCurrMeme()
@@ -49,13 +51,6 @@ function _drawText(text, x, y) {
     })
 }
 
-function _getX(align){
-    switch (align) {
-        case 'left': return 10
-        case 'center': return gCanvas.width / 2
-        case 'right': return gCanvas.width - 10
-    }
-}
 function _drawRect(x, y) {   // Not using x here...
     gCtx.beginPath()
     gCtx.rect(6, y + 3, gCanvas.width - 12, -40)
@@ -66,3 +61,12 @@ function _drawRect(x, y) {   // Not using x here...
     gCtx.stroke()
     gCtx.globalAlpha = 1
 }
+
+function _getX(align){
+    switch (align) {
+        case 'left': return 10
+        case 'center': return gCanvas.width / 2
+        case 'right': return gCanvas.width - 10
+    }
+}
+

@@ -5,6 +5,7 @@ function init(){
     initGallery()
     renderMeme()
     _loadCurrLineToInputEl()
+    _initColorPickers()
 }
 
 function setText(elInput){
@@ -32,7 +33,7 @@ function onAdjustFontSize(diff){
 }
 
 function onAddTextLine(){
-    var lineIdx = createTextLine(200, 200)
+    createTextLine(200, 200)
     renderMeme(gImgs[0].url);
     _loadCurrLineToInputEl()
 }
@@ -64,6 +65,21 @@ function onSwitchLine(){
     _loadCurrLineToInputEl()
 }
 
+function onSetFillColor(elColorPicker){
+    var meme = getCurrMeme();
+    var currLine = meme.selectedLineIdx
+
+    meme.lines[currLine].fill = elColorPicker.value
+    renderMeme()
+}
+function onSetLineColor(elColorPicker){
+    var meme = getCurrMeme();
+    var currLine = meme.selectedLineIdx
+
+    meme.lines[currLine].stroke = elColorPicker.value
+    renderMeme()
+}
+
 function downloadImg(){
     const data = gCanvas.toDataURL()
     var elLink = document.querySelector('#download-link');
@@ -83,6 +99,15 @@ function _loadCurrLineToInputEl(){
     var elInput = document.querySelector('[name=curr-meme-line]');
 
     elInput.value = meme.lines[currLine].txt
+    elInput.select()
+}
+
+function _initColorPickers(){
+    var elFillColorPicker = document.querySelector('#fill-color-picker');
+    var elLineColorPicker = document.querySelector('#line-color-picker');
+
+    elFillColorPicker.value = DEFAULT_FILL
+    elLineColorPicker.value = DEFAULT_STROKE
 }
 
 function initGallery(){

@@ -5,8 +5,8 @@ const IMG_DB = 'meme images';
 const DEFAULT_TEXT = 'Enter Text...'
 const DEFAULT_FONT_SIZE = 40
 const DEFAULT_ALIGNMENT = 'left'
-const DEFAULT_FILL = 'white'
-const DEFAULT_STROKE = 'black'
+const DEFAULT_FILL = '#ffffff'
+const DEFAULT_STROKE = '#000000'
 
 var gKeywords = { 'happy': 12, 'funny puk': 1 }
 
@@ -108,5 +108,5 @@ function createTextLine(x = 0, y = 0) {
 
     gMeme.lines.push(line)
     gMeme.selectedLineIdx = gMeme.lines.length - 1
-    return line
+    return line // ? required ?
 }

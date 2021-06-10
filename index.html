@@ -9,6 +9,7 @@
 </head>
 <body onload="init()" onresize="onResize()">
 
+    <div class="main-screen" onclick="toggleMenu()"></div>
     <header class="main-header">
         <nav class="navbar main-layout flex flex-space-between">
             <h1>Memerrr!!!</h1>
@@ -17,6 +18,7 @@
                 <li id="editor-section" onclick=onShowEditor()>Editor</li>
                 <li id="memes-section" onclick=onShowMemes()>Memes</li>
             </ul>
+            <div class="hamburger justify-center" onclick="toggleMenu()">☰</div>
         </nav>
     </header>
 
@@ -83,7 +85,7 @@
     <script src="js/services/storage.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/canvas.js"></script>
-    <script src="js/mem-gen.js"></script>
+    <script src="js/meme-gen.js"></script>
 
 </body>
 </html>

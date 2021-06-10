@@ -52,7 +52,20 @@ function onSetImage(elImg){
 }
 
 function onAddTextLine(){
-    createTextLine(200, 200)
+    var meme = getCurrMeme()
+
+    switch (meme.lines.length) {
+        case 0:
+            createTextLine(50, 50)
+            break;
+        case 1:
+            createTextLine(400, 400)
+            break;
+        default:
+            createTextLine(225, 225)
+            break;
+    }
+    
     renderMeme(gImgs[0].url);
     _loadCurrLineToInputEl()
 }
@@ -201,6 +214,8 @@ function _updateAppState(strSection){
             elMemeGallery.style.display = 'grid'
             break
     }
+
+    document.body.classList.remove('menu-open')
 }
 function initGallery(){
 
@@ -213,4 +228,8 @@ function initGallery(){
     })
 
     elGallery.innerHTML = strHTML
+}
+
+function toggleMenu() {
+    document.body.classList.toggle('menu-open');
 }

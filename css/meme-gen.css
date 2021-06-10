@@ -57,6 +57,26 @@ a:visited{
 
 /* Components */
 
+/* Screen */
+
+.main-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0,.7);
+    cursor: pointer;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .6s;
+}
+
+body.menu-open .main-screen{
+    pointer-events: auto;
+    opacity: 1;
+}
+
 /* Navbar */
 
 .main-header {
@@ -101,6 +121,11 @@ a:visited{
     border-bottom: 5px solid blanchedalmond;
 }
 
+.hamburger{
+    color: black;
+    padding-right: 1rem;
+    display: none;
+}
 
 /* Editor */
 
@@ -308,4 +333,44 @@ a:visited{
     }
 }
 @media (max-width: 520px){
+
+    /* .main-layout{
+        max-width: 380px;
+    }     */
+    .hamburger{
+        display: flex;
+        align-items: center;
+        height: 60px;
+        cursor: pointer;
+    }
+
+    .navbar ul {
+        position: fixed;
+        right: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        height: 100vh;
+        border-inline-start: 1px solid rgb(36, 36, 36);
+        background-color: rgb(60 60 60 / 90%);
+        width: 200px;
+        /* display: none; */
+        transform: translateX(100%);
+        transition: transform .6s;
+    }
+    .navbar li{
+        border: none;
+        border-bottom: 1px solid black;
+        text-align: left;
+        width: 220px;
+    }
+    .navbar li:last-child {
+        border-right: none;
+    }
+    body.menu-open .navbar ul {
+        /* display: block; */
+        transform: translateX(0);
+    }
+
 }

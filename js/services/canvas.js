@@ -39,13 +39,13 @@ function renderMeme() {
 
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height) 
-        _drawText('Hello', 150,150)
+        _drawText(150,150)
     }
 }
 
 // Private functions.
 
-function _drawText(text, x, y) {
+function _drawText(x, y) {
     var meme = getCurrMeme()
     var currLine = meme.selectedLineIdx
 
@@ -57,9 +57,8 @@ function _drawText(text, x, y) {
 
         gCtx.strokeStyle = line.stroke
         gCtx.fillStyle = line.fill
-        gCtx.txt = text
+        gCtx.txt = line.txt
         gCtx.font = `${line.size}px ${gFontFamily}`
-        console.log(gCtx.font);
         gCtx.textAlign = line.align
 
         var x = _getX(line.align)

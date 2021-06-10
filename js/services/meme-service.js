@@ -85,7 +85,7 @@ function getCurrMeme() {
     return gMeme;
 }
 
-function createTextLine(x = 0, y = 0) {
+function createTextLine(x = 50, y = 50) {
 
     var line = {
         txt: DEFAULT_TEXT,
@@ -99,5 +99,4 @@ function createTextLine(x = 0, y = 0) {
 
     gMeme.lines.push(line)
     gMeme.selectedLineIdx = gMeme.lines.length - 1
-    // return line // ? required ?
 }

@@ -1,11 +1,25 @@
 var gCanvas = null
 var gCtx = null
+var gIsCanvasChange = true
+
 var gFontFamily = ''
 
 function initCanvas(){
     gCanvas = document.querySelector('#canvas');
     gCtx = gCanvas.getContext('2d');
     gCtx.lineWidth = 1
+    adjustCanvasSize()
+}
+
+function flagCanvasSizeChange(){
+    gIsCanvasChange = true
+}
+function adjustCanvasSize(){
+    if(window.innerWidth < 520){
+        gCtx.canvas.width = gCtx.canvas.height = 300
+    } else {
+        gCtx.canvas.width = gCtx.canvas.height = 450
+    }
 }
 
 function renderMeme() {
@@ -13,6 +27,8 @@ function renderMeme() {
     var meme = getCurrMeme()
     var img = new Image()
     var imgs = getImgs()
+
+    if(gIsCanvasChange) adjustCanvasSize()
 
     var currImg = imgs.find(img => {
         return img.id === meme.selectedImgId

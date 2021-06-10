@@ -70,15 +70,6 @@ var gMeme = {
         x: 50,
         y: 50,
     },
-    // {
-    //     txt: 'Keep at it!',
-    //     size: DEFAULT_FONT_SIZE,
-    //     align: DEFAULT_ALIGNMENT,
-    //     fill: DEFAULT_FILL,
-    //     stroke: DEFAULT_STROKE,
-    //     x: 100,
-    //     y: 100,
-    // }
 ]
 }
 
@@ -108,5 +99,5 @@ function createTextLine(x = 0, y = 0) {
 
     gMeme.lines.push(line)
     gMeme.selectedLineIdx = gMeme.lines.length - 1
-    return line // ? required ?
+    // return line // ? required ?
 }

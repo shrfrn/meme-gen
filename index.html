@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/meme-gen.css">
     <title>Meme Generator</title>
 </head>
-<body onload="init()">
+<body onload="init()" onresize="onResize()">
+
     <header class="main-header">
         <nav class="navbar main-layout flex flex-space-between">
             <h1>Memerrr!!!</h1>
@@ -18,6 +19,7 @@
             </ul>
         </nav>
     </header>
+
     <section class="editor main-layout hidden">
 
         <section class="canvas flex-xy-center">
@@ -71,12 +73,13 @@
         
     </section>
     
-    <section class="gallery">
+    <section class="gallery main-layout">
     </section>
     
-    <section class="meme-gallery">
+    <section class="memes main-layout">
         <h1>Meme Gallery</h1>
     </section>
+
     <script src="js/services/storage.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/canvas.js"></script>

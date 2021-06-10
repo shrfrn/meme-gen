@@ -1,22 +1,36 @@
 'use strict';
 
-const gFonts = ['impact-reg', 'lato', 'Arial', 'Courier New', 'comic-sans', 'Times New Roman', 'cursive', 'Lucida Sans'];
+const gFonts = ['lato', 'impact-reg', 'Arial', 'cursive', 'Lucida Sans'];
+var gPrevViewportWidth = 0
 
 function init(){
     initCanvas()
     initGallery()
-    renderMeme()
-    _loadCurrLineToInputEl()
     _initToolBar()
+    _updateAppState('Gallery')
+    renderMeme()
+}
+
+function onResize(){
+
+    if(window.innerWidth < 520 && gPrevViewportWidth >= 520){
+        flagCanvasSizeChange()
+        renderMeme()
+    }
+    if(window.innerWidth > 520 && gPrevViewportWidth <= 520){
+        flagCanvasSizeChange()
+        renderMeme()
+    }
+    gPrevViewportWidth = window.innerWidth
 }
 function onShowGallery(){
-    _updateNavBar('Gallery')
+    _updateAppState('Gallery')
 }
 function onShowEditor(){
-    _updateNavBar('Editor')
+    _updateAppState('Editor')
 }
 function onShowMemes(){
-    _updateNavBar('Memes')
+    _updateAppState('Memes')
 }
 function setText(elInput){
     var meme = getCurrMeme()
@@ -24,10 +38,13 @@ function setText(elInput){
 
     meme.lines[currLineIdx].txt = elInput.value
     elInput.value = ''
+    _updateAppState('Editor')
     renderMeme()
 }
 
-function setImage(elImg){
+function onSetImage(elImg){
+
+    _updateAppState('Editor')
 
     var imgId = elImg.dataset.id
     setCurrImg(imgId)
@@ -141,12 +158,15 @@ function _initToolBar(){
     elFillColorPicker.value = DEFAULT_FILL
     elLineColorPicker.value = DEFAULT_STROKE
     
+    _loadCurrLineToInputEl()
+
     var elFontChooser = document.querySelector('#font-chooser')
     elFontChooser.value = gFonts[0]
     setFont(gFonts[0])
+    onChangeFont(elFontChooser)
 }
 
-function _updateNavBar(strSection){
+function _updateAppState(strSection){
 
     var elSectionItems = document.querySelectorAll('.navbar ul li');
 
@@ -157,6 +177,30 @@ function _updateNavBar(strSection){
             elItem.classList.remove('active-section')
         }
     })
+
+    var elGallery = document.querySelector('.gallery');
+    var elEditor = document.querySelector('.editor');
+    var elMemeGallery = document.querySelector('.memes');
+
+    switch (strSection) {
+        case 'Gallery':
+            elGallery.style.display = 'grid'
+            elEditor.style.display = 'none'
+            elMemeGallery.style.display = 'none'
+            break
+
+            case 'Editor':
+            elGallery.style.display = 'none'
+            elEditor.style.display = 'flex'
+            elMemeGallery.style.display = 'none'
+            break
+
+            case 'Memes':
+            elGallery.style.display = 'none'
+            elEditor.style.display = 'none'
+            elMemeGallery.style.display = 'grid'
+            break
+    }
 }
 function initGallery(){
 
@@ -165,7 +209,7 @@ function initGallery(){
     var elGallery = document.querySelector('.gallery')
 
     imgs.forEach(img => {
-        strHTML += `\t<img data-id="${img.id}" src="${img.url}" onclick="setImage(this)" alt=""></img>\n`
+        strHTML += `\t<img data-id="${img.id}" src="${img.url}" onclick="onSetImage(this)" alt=""></img>\n`
     })
 
     elGallery.innerHTML = strHTML

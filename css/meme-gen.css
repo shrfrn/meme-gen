@@ -1,7 +1,7 @@
 /* Fonts */
 
-@font-face{
-    font-family: Impact;
+@font-face {
+    font-family: impact-reg;
     src: url(../fonts/impact.ttf);
 }
 
@@ -31,9 +31,14 @@
     box-sizing: border-box;
 }
 body{
-    font-family: sans-serif;
+    font-family: lato;
     background-color: lightgray;
 }
+
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+}
+
 a{
     text-decoration: none;
     color: black;
@@ -51,6 +56,50 @@ a:visited{
 }
 
 /* Components */
+
+/* Navbar */
+
+.main-header {
+    height: 80px;
+}
+
+.navbar {
+    background-color: slategray;
+    align-items: center;
+}
+
+.navbar h1 {
+    padding-left: 20px;
+}
+
+.navbar ul {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.navbar li {
+    width: 100px;
+    height: 80px;
+    cursor: pointer;
+    padding-top: 30px;
+    /* padding-left: 26px; */
+    text-align: center;
+    border-left: 1px solid black;
+}
+
+.navbar li:last-child {
+    border-right: 1px solid black;
+}
+
+.navbar li:hover{
+    color: blanchedalmond;
+}
+
+.active-section{
+    border-bottom: 5px solid blanchedalmond;
+}
+
 
 /* Editor */
 
@@ -216,6 +265,10 @@ a:visited{
 }
     /* Helper classes */
 
+.hidden {
+    display: none;
+}    
+
 .clean-list{
     list-style-type: none;
 }
@@ -235,7 +288,9 @@ a:visited{
     justify-content: center;
     align-items: center;
 }
-
+.flex-space-between {
+    justify-content: space-between;
+}
 .grid-auto {
     display: grid;
     grid-auto-rows: minmax(300px, 1fr);

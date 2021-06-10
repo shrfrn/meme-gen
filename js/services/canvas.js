@@ -1,5 +1,6 @@
 var gCanvas = null
 var gCtx = null
+var gFontFamily = ''
 
 function initCanvas(){
     gCanvas = document.querySelector('#canvas');
@@ -41,7 +42,8 @@ function _drawText(text, x, y) {
         gCtx.strokeStyle = line.stroke
         gCtx.fillStyle = line.fill
         gCtx.txt = text
-        gCtx.font = `${line.size}px Arial`
+        gCtx.font = `${line.size}px ${gFontFamily}`
+        console.log(gCtx.font);
         gCtx.textAlign = line.align
 
         var x = _getX(line.align)
@@ -70,3 +72,6 @@ function _getX(align){
     }
 }
 
+function setFont(fontFamily) {
+    gFontFamily = fontFamily
+}

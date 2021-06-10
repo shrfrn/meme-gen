@@ -1,13 +1,23 @@
 'use strict';
 
+const gFonts = ['impact-reg', 'lato', 'Arial', 'Courier New', 'comic-sans', 'Times New Roman', 'cursive', 'Lucida Sans'];
+
 function init(){
     initCanvas()
     initGallery()
     renderMeme()
     _loadCurrLineToInputEl()
-    _initColorPickers()
+    _initToolBar()
 }
-
+function onShowGallery(){
+    _updateNavBar('Gallery')
+}
+function onShowEditor(){
+    _updateNavBar('Editor')
+}
+function onShowMemes(){
+    _updateNavBar('Memes')
+}
 function setText(elInput){
     var meme = getCurrMeme()
     var currLineIdx = meme.selectedLineIdx
@@ -22,14 +32,6 @@ function setImage(elImg){
     var imgId = elImg.dataset.id
     setCurrImg(imgId)
     renderMeme()
-}
-
-function onAdjustFontSize(diff){
-    var meme = getCurrMeme()
-    var currLineIdx = meme.selectedLineIdx
-
-    meme.lines[currLineIdx].size += diff
-    renderMeme(meme.lines[0].txt, 150, 150)
 }
 
 function onAddTextLine(){
@@ -54,6 +56,22 @@ function onRemoveTextLine(){
     renderMeme()
 }
 
+function onAdjustFontSize(diff){
+    var meme = getCurrMeme()
+    var currLineIdx = meme.selectedLineIdx
+
+    meme.lines[currLineIdx].size += diff
+    renderMeme(meme.lines[0].txt, 150, 150)
+}
+
+function onChangeFont(elFontChooser){
+    var currFontIdx = gFonts.findIndex(font => font === elFontChooser.value)
+    if(++currFontIdx === gFonts.length) currFontIdx = 0
+    elFontChooser.style.fontFamily = gFonts[currFontIdx]
+    elFontChooser.value = gFonts[currFontIdx]
+    setFont(gFonts[currFontIdx])
+    renderMeme()
+}
 function onMoveLine(dir){
     var meme = getCurrMeme();
     var currLineIdx = meme.selectedLineIdx
@@ -116,14 +134,30 @@ function _loadCurrLineToInputEl(){
     elInput.select()
 }
 
-function _initColorPickers(){
+function _initToolBar(){
     var elFillColorPicker = document.querySelector('#fill-color-picker')
     var elLineColorPicker = document.querySelector('#line-color-picker')
-
+    
     elFillColorPicker.value = DEFAULT_FILL
     elLineColorPicker.value = DEFAULT_STROKE
+    
+    var elFontChooser = document.querySelector('#font-chooser')
+    elFontChooser.value = gFonts[0]
+    setFont(gFonts[0])
 }
 
+function _updateNavBar(strSection){
+
+    var elSectionItems = document.querySelectorAll('.navbar ul li');
+
+    elSectionItems.forEach(elItem => {
+        if(elItem.innerText === strSection){ 
+            elItem.classList.add('active-section')
+        } else {
+            elItem.classList.remove('active-section')
+        }
+    })
+}
 function initGallery(){
 
     var strHTML = ''

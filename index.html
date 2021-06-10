@@ -8,10 +8,17 @@
     <title>Meme Generator</title>
 </head>
 <body onload="init()">
-    <header>
-        <h1>Meme Gen!!!</h1>
+    <header class="main-header">
+        <nav class="navbar main-layout flex flex-space-between">
+            <h1>Memerrr!!!</h1>
+            <ul class="clean-list">
+                <li id="gallery-section" onclick=onShowGallery()>Gallery</li>
+                <li id="editor-section" onclick=onShowEditor()>Editor</li>
+                <li id="memes-section" onclick=onShowMemes()>Memes</li>
+            </ul>
+        </nav>
     </header>
-    <section class="editor main-layout flex">
+    <section class="editor main-layout hidden">
 
         <section class="canvas flex-xy-center">
             <canvas id="canvas" width="450px" height="450px">
@@ -37,7 +44,7 @@
                 <ul id="font-controls" class="clean-list">
                     <li id="font-grow" onclick="onAdjustFontSize(1)"></li>
                     <li id="font-shrink" onclick="onAdjustFontSize(-1)"></li>
-                    <input name="font-chooser" type="text" onclick="changeFont(this)">
+                    <input id="font-chooser" type="text" onclick="onChangeFont(this)">
                     <li id="align-left" onclick="onAlignLine('left')"></li>
                     <li id="align-center" onclick="onAlignLine('center')"></li>
                     <li id="align-right" onclick="onAlignLine('right')"></li>
@@ -60,27 +67,16 @@
                     <li onclick="onShareloadImg()" id="facebook-share"></li>
                 </ul>
             </div>
-                <!-- <input name="curr-meme-line" type="text" onchange="setText(this)">
-            <button onclick="onAdjustFontSize(1)">+</button>
-            <button onclick="onAdjustFontSize(-1)">-</button>
-            <button onclick="onAddTextLine()">++</button>
-            <button onclick="onRemoveTextLine()">--</button>
-            <button onclick="onMoveLine(-1)">Up</button>
-            <button onclick="onMoveLine(1)">Down</button>
-            <button onclick="onAlignLine('left')">Left</button>
-            <button onclick="onAlignLine('center')">Center</button>
-            <button onclick="onAlignLine('right')">Right</button>
-            <button onclick="onSwitchLine()">Switch</button>
-            <input oninput="onSetFillColor(this)" type="color" name="fill-color-picker" id="fill-color-picker">
-            <input oninput="onSetLineColor(this)" type="color" name="line-color-picker" id="line-color-picker">
-            <button onclick="downloadImg()"><a id="download-link" href="#">Download</a></button> -->
         </section>
-
+        
     </section>
-
+    
     <section class="gallery">
     </section>
-
+    
+    <section class="meme-gallery">
+        <h1>Meme Gallery</h1>
+    </section>
     <script src="js/services/storage.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/canvas.js"></script>

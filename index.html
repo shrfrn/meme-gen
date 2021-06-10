@@ -11,7 +11,7 @@
     <header>
         <h1>Meme Gen!!!</h1>
     </header>
-    <section class="editor">
+    <section class="editor main-layout flex">
 
         <section class="canvas flex-xy-center">
             <canvas id="canvas" width="450px" height="450px">
@@ -20,10 +20,51 @@
         </section>
         
         <section class="editor-controls">
-            <input name="curr-meme-line" type="text" onchange="setText(this)">
+            <div class="editor-controls-group">
+                <p>lines:</p>
+                <ul id="text-line-controls" class="clean-list">
+                    <li id="nudge-line-up" onclick="onMoveLine(-1)"></li>
+                    <li id="nudge-line-down" onclick="onMoveLine(1)"></li>
+                    <input name="curr-meme-line" type="text" onchange="setText(this)">
+                    <!-- <li><input name="curr-meme-line" type="text" onchange="setText(this)"></li> -->
+                    <li id="switch-line" onclick="onSwitchLine()"></li>
+                    <li id="add-line" onclick="onAddTextLine()"></li>
+                    <li id="remove-line" onclick="onRemoveTextLine()"></li>
+                </ul>
+            </div>
+            <div class="editor-controls-group">
+                <p>fonts:</p>
+                <ul id="font-controls" class="clean-list">
+                    <li id="font-grow" onclick="onAdjustFontSize(1)"></li>
+                    <li id="font-shrink" onclick="onAdjustFontSize(-1)"></li>
+                    <input name="font-chooser" type="text" onclick="changeFont(this)">
+                    <li id="align-left" onclick="onAlignLine('left')"></li>
+                    <li id="align-center" onclick="onAlignLine('center')"></li>
+                    <li id="align-right" onclick="onAlignLine('right')"></li>
+                </ul>
+            </div>
+            <div class="editor-controls-group">
+                <p>colors:</p>
+                <ul>
+                    <li><label id="fill-color-btn" for="fill-color-picker"></label></li>
+                    <input oninput="onSetFillColor(this)" type="color" name="fill-color-picker" id="fill-color-picker">
+                    <li><label id="line-color-btn" for="line-color-picker"></label></li>
+                    <input oninput="onSetLineColor(this)" type="color" name="line-color-picker" id="line-color-picker">
+                </ul>
+            </div>
+            <div class="editor-controls-group">
+                <p>save & share:</p>
+                <ul>
+                    <li onclick="onDownloadImg()"><a id="download-link" href="#"></a></li>
+                    <li onclick="onSaveMeme()" id="save-btn"></li>
+                    <li onclick="onShareloadImg()" id="facebook-share"></li>
+                </ul>
+            </div>
+                <!-- <input name="curr-meme-line" type="text" onchange="setText(this)">
             <button onclick="onAdjustFontSize(1)">+</button>
             <button onclick="onAdjustFontSize(-1)">-</button>
-            <button onclick="onAddTextLine()">+</button>
+            <button onclick="onAddTextLine()">++</button>
+            <button onclick="onRemoveTextLine()">--</button>
             <button onclick="onMoveLine(-1)">Up</button>
             <button onclick="onMoveLine(1)">Down</button>
             <button onclick="onAlignLine('left')">Left</button>
@@ -32,8 +73,7 @@
             <button onclick="onSwitchLine()">Switch</button>
             <input oninput="onSetFillColor(this)" type="color" name="fill-color-picker" id="fill-color-picker">
             <input oninput="onSetLineColor(this)" type="color" name="line-color-picker" id="line-color-picker">
-            <!-- <a href="#" onclick="downloadImg(this)">Download</a> -->
-            <button onclick="downloadImg()"><a id="download-link" href="#">Download</a></button>
+            <button onclick="downloadImg()"><a id="download-link" href="#">Download</a></button> -->
         </section>
 
     </section>

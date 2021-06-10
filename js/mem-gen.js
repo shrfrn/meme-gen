@@ -10,9 +10,9 @@ function init(){
 
 function setText(elInput){
     var meme = getCurrMeme()
-    var currLine = meme.selectedLineIdx
+    var currLineIdx = meme.selectedLineIdx
 
-    meme.lines[currLine].txt = elInput.value
+    meme.lines[currLineIdx].txt = elInput.value
     elInput.value = ''
     renderMeme()
 }
@@ -26,9 +26,9 @@ function setImage(elImg){
 
 function onAdjustFontSize(diff){
     var meme = getCurrMeme()
-    var currLine = meme.selectedLineIdx
+    var currLineIdx = meme.selectedLineIdx
 
-    meme.lines[currLine].size += diff
+    meme.lines[currLineIdx].size += diff
     renderMeme(meme.lines[0].txt, 150, 150)
 }
 
@@ -38,19 +38,35 @@ function onAddTextLine(){
     _loadCurrLineToInputEl()
 }
 
+function onRemoveTextLine(){
+    var meme = getCurrMeme()
+    var currLineIdx = meme.selectedLineIdx
+
+    if(currLineIdx === -1)  return
+
+    meme.lines.splice(currLineIdx,1)
+    if(meme.lines.length === 0){
+        meme.selectedLineIdx = -1
+    } else {
+        meme.selectedLineIdx--
+    }
+
+    renderMeme()
+}
+
 function onMoveLine(dir){
     var meme = getCurrMeme();
-    var currLine = meme.selectedLineIdx
+    var currLineIdx = meme.selectedLineIdx
 
-    meme.lines[currLine].y += dir * 10
+    meme.lines[currLineIdx].y += dir * 10
     renderMeme()
 }
 
 function onAlignLine(dir){
     var meme = getCurrMeme();
-    var currLine = meme.selectedLineIdx
+    var currLineIdx = meme.selectedLineIdx
 
-    meme.lines[currLine].align = dir
+    meme.lines[currLineIdx].align = dir
     renderMeme()
 }
 
@@ -67,44 +83,42 @@ function onSwitchLine(){
 
 function onSetFillColor(elColorPicker){
     var meme = getCurrMeme();
-    var currLine = meme.selectedLineIdx
-
-    meme.lines[currLine].fill = elColorPicker.value
+    var currLineIdx = meme.selectedLineIdx
+    var elColorPickerIcon = document.querySelector('#fill-color-btn');
+    
+    elColorPickerIcon.style.color = elColorPicker.value
+    meme.lines[currLineIdx].fill = elColorPicker.value
     renderMeme()
 }
 function onSetLineColor(elColorPicker){
     var meme = getCurrMeme();
-    var currLine = meme.selectedLineIdx
-
-    meme.lines[currLine].stroke = elColorPicker.value
+    var currLineIdx = meme.selectedLineIdx
+    var elColorPickerIcon = document.querySelector('#line-color-btn');
+    
+    elColorPickerIcon.style.color = elColorPicker.value
+    meme.lines[currLineIdx].stroke = elColorPicker.value
     renderMeme()
 }
 
-function downloadImg(){
+function onDownloadImg(){
     const data = gCanvas.toDataURL()
     var elLink = document.querySelector('#download-link');
     elLink.href = data
     elLink.download = 'my-img.jpg'
 }
 
-// function downloadImg(elLink){
-//     const data = gCanvas.toDataURL()
-//     elLink.href = data
-//     elLink.download = 'my-img.jpg'
-// }
-
 function _loadCurrLineToInputEl(){
     var meme = getCurrMeme();
-    var currLine = meme.selectedLineIdx
-    var elInput = document.querySelector('[name=curr-meme-line]');
+    var currLineIdx = meme.selectedLineIdx
+    var elInput = document.querySelector('[name=curr-meme-line]')
 
-    elInput.value = meme.lines[currLine].txt
+    elInput.value = meme.lines[currLineIdx].txt
     elInput.select()
 }
 
 function _initColorPickers(){
-    var elFillColorPicker = document.querySelector('#fill-color-picker');
-    var elLineColorPicker = document.querySelector('#line-color-picker');
+    var elFillColorPicker = document.querySelector('#fill-color-picker')
+    var elLineColorPicker = document.querySelector('#line-color-picker')
 
     elFillColorPicker.value = DEFAULT_FILL
     elLineColorPicker.value = DEFAULT_STROKE
@@ -114,12 +128,11 @@ function initGallery(){
 
     var strHTML = ''
     var imgs = getImgs()
-    var elGallery = document.querySelector('.gallery');
+    var elGallery = document.querySelector('.gallery')
 
     imgs.forEach(img => {
         strHTML += `\t<img data-id="${img.id}" src="${img.url}" onclick="setImage(this)" alt=""></img>\n`
     })
-    // <img src="img/2.jpg" onclick="setImage(this)" alt="">
 
     elGallery.innerHTML = strHTML
 }

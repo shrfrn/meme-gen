@@ -1,7 +1,31 @@
+/* Fonts */
+
 @font-face{
     font-family: Impact;
     src: url(../fonts/impact.ttf);
 }
+
+@font-face {
+    font-family: fa-regular;
+    src: url(../fonts/fa-regular-400.ttf);
+}
+
+@font-face {
+    font-family: fa-solid;
+    src: url(../fonts/fa-solid-900.ttf);
+}
+
+@font-face {
+    font-family: fa-brands;
+    src: url(../fonts/fa-brands-400.ttf);
+}
+
+@font-face {
+    font-family: lato;
+    src: url(../fonts/Lato-Regular.ttf);
+}
+
+/* General */
 
 * {
     box-sizing: border-box;
@@ -18,8 +42,156 @@ a:visited{
     text-decoration: none;
     color: black;
 }
+
+/* Layout */
+
+.main-layout{
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+/* Components */
+
+/* Editor */
+
 .editor {
     margin: 40px auto;
+    gap: 30px;
+
+}
+
+/* Editor toolbar icon groups */
+
+.editor-controls{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 40%;
+}
+
+.editor-controls-group {
+    padding: .6rem;
+}
+.editor-controls-group > p{
+    margin: 0;
+    padding-left: 24px;
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+    font-family: lato;
+    border-radius: 1rem;
+    background-color: #e6e1d8c9;
+    width: 80%;
+}
+
+.editor-controls-group > ul {
+    display: flex;
+    padding: .3rem 1rem;
+    margin-top: 4px;
+    background-color: lightskyblue;
+    font-size: 1.5rem;
+    border-radius: 2rem;
+    list-style-type: none;
+}
+.editor-controls-group ul:last-of-type {
+    margin-bottom: 0;
+}
+.editor-controls-group > ul > li{
+    color: rgb(53, 50, 50);
+    background-color: lightsteelblue;
+    border-radius: 50%;
+    border: 3px solid rgb(168, 163, 163);
+    padding: 5px 8px 4px;
+    margin: 0 4px;
+}
+
+/* Editor toolbar input fields */
+
+.editor-controls-group > ul input{
+    height: 2.5rem;
+    margin-top: 2px;
+    border-radius: 35px;
+    border: 3px solid rgb(168, 163, 163);
+    font-size: 1.4rem;
+    padding-left: 12px;
+}
+
+.editor-controls-group > ul > *:hover{
+    border-color: lightseagreen;
+}
+/* Editor toolbar icons */
+
+#nudge-line-up::before{
+    font-family: fa-solid;
+    content: '\f077'
+}
+#nudge-line-down::before{
+    font-family: fa-solid;
+    content: '\f078'
+}
+#add-line::before{
+    font-family: fa-solid;
+    font-size: 1.4rem;
+    content: '\f7f5'
+}
+#remove-line::before{
+    font-family: fa-regular;
+    content: '\f2ed'
+}
+#switch-line::before{
+    font-family: fa-solid;
+    content: '\f101'
+}
+#font-grow::before{
+    font-family: fa-solid;
+    content: '\f067'
+}
+#font-shrink::before{
+    font-family: fa-solid;
+    content: '\f068'
+}
+#align-left::before{
+    font-family: fa-solid;
+    content: '\f036'
+}
+#align-center::before{
+    font-family: fa-solid;
+    content: '\f037'
+}
+#align-right::before{
+    font-family: fa-solid;
+    content: '\f038'
+}
+#fill-color-btn::before{
+    font-family: fa-solid;
+    content: '\f576';
+    padding-bottom: 3px;
+    font-size: 1.3rem;
+}
+#line-color-btn::before{
+    font-family: fa-solid;
+    content: '\f5b7';
+    font-size: 1.1rem;
+}
+#fill-color-picker{
+    display: none;
+}
+#line-color-picker{
+    display: none;
+}
+#download-link::before{
+    font-family: fa-solid;
+    content: '\f019';
+    /* font-size: 1.1rem; */
+}
+#save-btn::before{
+    font-family: fa-solid;
+    content: '\f0c7';
+    /* font-size: 1.1rem; */
+}
+#facebook-share::before{
+    font-family: fa-solid;
+    content: '\f1e0';
+    /* font-size: 1.1rem; */
 }
 
 .gallery{
@@ -35,17 +207,24 @@ a:visited{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: .3s;
 }
-
-/* Helper classes */
+.gallery img:hover{
+    z-index: 1;
+    width: 120%;
+    height: 120%;
+}
+    /* Helper classes */
 
 .clean-list{
     list-style-type: none;
-    margin: 0;
 }
 .clean-link{
     text-decoration: none;
     color: black;
+}
+.flex{
+    display: flex;
 }
 .flex-dir-column{
     flex-direction: column;

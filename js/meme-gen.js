@@ -61,16 +61,18 @@ function onSetImage(elImg){
 
 function onAddTextLine(){
     var meme = getCurrMeme()
+    var canvasSize = getCanvasSize()
 
     switch (meme.lines.length) {
         case 0:
             createTextLine(50, 50)
             break
         case 1:
-            createTextLine(400, 400)
+            (canvasSize === 'large') ? createTextLine(400, 400) : createTextLine(275, 275)
             break
         default:
-            createTextLine(225, 225)
+            (canvasSize === 'large') ? createTextLine(225, 225) : createTextLine(170, 170)
+            break
     }
     
     renderMeme();

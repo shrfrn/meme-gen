@@ -58,6 +58,11 @@ function getStrokeColor(){
     return gStrokeColor
 }
 
+function getCanvasSize(){
+    if(gCtx.canvas.width === 450)    return 'large'
+    return 'small'
+}
+
 // Private functions.
 
 function _drawText(x, y) {

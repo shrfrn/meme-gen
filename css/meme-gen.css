@@ -334,9 +334,6 @@ body.menu-open .main-screen{
 }
 @media (max-width: 520px){
 
-    /* .main-layout{
-        max-width: 380px;
-    }     */
     .hamburger{
         display: flex;
         align-items: center;
@@ -369,8 +366,14 @@ body.menu-open .main-screen{
         border-right: none;
     }
     body.menu-open .navbar ul {
-        /* display: block; */
         transform: translateX(0);
     }
 
+    .editor-controls {
+        display: none;
+    }
+    
+    .editor-controls-mobile {
+        display: block;
+    }
 }

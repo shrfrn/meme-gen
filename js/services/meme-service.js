@@ -85,14 +85,14 @@ function getCurrMeme() {
     return gMeme;
 }
 
-function createTextLine(x = 50, y = 50) {
+function createTextLine(x, y) {
 
     var line = {
         txt: DEFAULT_TEXT,
         size: DEFAULT_FONT_SIZE,
         align: DEFAULT_ALIGNMENT,
-        fill: DEFAULT_FILL,
-        stroke: DEFAULT_STROKE,
+        fill: getFillColor(),
+        stroke: getStrokeColor(),
         x,
         y,
     }

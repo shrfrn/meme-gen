@@ -1,11 +1,14 @@
 'use strict';
 
+const CANVAS_SIZE_CHANGE = 520
+const NUDGE_PX_AMOUNT = 10
+
 const gFonts = ['lato', 'impact-reg', 'Arial', 'cursive', 'Lucida Sans'];
 var gPrevViewportWidth = 0
 
 function init(){
     initCanvas()
-    initGallery()
+    _initGallery()
     _initToolBar()
     _updateAppState('Gallery')
     renderMeme()
@@ -13,11 +16,11 @@ function init(){
 
 function onResize(){
 
-    if(window.innerWidth < 520 && gPrevViewportWidth >= 520){
+    if(window.innerWidth < CANVAS_SIZE_CHANGE && gPrevViewportWidth >= CANVAS_SIZE_CHANGE){
         flagCanvasSizeChange()
         renderMeme()
     }
-    if(window.innerWidth > 520 && gPrevViewportWidth <= 520){
+    if(window.innerWidth > CANVAS_SIZE_CHANGE && gPrevViewportWidth <= CANVAS_SIZE_CHANGE){
         flagCanvasSizeChange()
         renderMeme()
     }
@@ -32,13 +35,18 @@ function onShowEditor(){
 function onShowMemes(){
     _updateAppState('Memes')
 }
-function setText(elInput){
+
+// HTML event handlers
+
+function onSetText(elInput){
+
     var meme = getCurrMeme()
     var currLineIdx = meme.selectedLineIdx
 
+    if(currLineIdx === -1)  return
+
     meme.lines[currLineIdx].txt = elInput.value
     elInput.value = ''
-    _updateAppState('Editor')
     renderMeme()
 }
 
@@ -57,16 +65,15 @@ function onAddTextLine(){
     switch (meme.lines.length) {
         case 0:
             createTextLine(50, 50)
-            break;
+            break
         case 1:
             createTextLine(400, 400)
-            break;
+            break
         default:
             createTextLine(225, 225)
-            break;
     }
     
-    renderMeme(gImgs[0].url);
+    renderMeme();
     _loadCurrLineToInputEl()
 }
 
@@ -77,11 +84,7 @@ function onRemoveTextLine(){
     if(currLineIdx === -1)  return
 
     meme.lines.splice(currLineIdx,1)
-    if(meme.lines.length === 0){
-        meme.selectedLineIdx = -1
-    } else {
-        meme.selectedLineIdx--
-    }
+    meme.selectedLineIdx--
 
     renderMeme()
 }
@@ -90,30 +93,43 @@ function onAdjustFontSize(diff){
     var meme = getCurrMeme()
     var currLineIdx = meme.selectedLineIdx
 
+    if(currLineIdx === -1)  return
+
     meme.lines[currLineIdx].size += diff
     renderMeme(meme.lines[0].txt, 150, 150)
 }
 
 function onChangeFont(elFontChooser){
+
+    // Get the next font
     var currFontIdx = gFonts.findIndex(font => font === elFontChooser.value)
     if(++currFontIdx === gFonts.length) currFontIdx = 0
+
+    // Update the font chooser
     elFontChooser.style.fontFamily = gFonts[currFontIdx]
     elFontChooser.value = gFonts[currFontIdx]
+
+    // Update the canvas
     setFont(gFonts[currFontIdx])
     renderMeme()
 }
 function onMoveLine(dir){
+
     var meme = getCurrMeme();
     var currLineIdx = meme.selectedLineIdx
 
-    meme.lines[currLineIdx].y += dir * 10
+    if(currLineIdx === -1)  return
+
+    meme.lines[currLineIdx].y += dir * NUDGE_PX_AMOUNT
     renderMeme()
 }
 
 function onAlignLine(dir){
     var meme = getCurrMeme();
     var currLineIdx = meme.selectedLineIdx
-
+    
+    if(currLineIdx === -1)  return
+    
     meme.lines[currLineIdx].align = dir
     renderMeme()
 }
@@ -121,57 +137,89 @@ function onAlignLine(dir){
 function onSwitchLine(){
     var meme = getCurrMeme();
 
+    if(meme.selectedLineIdx === -1)  return
+
     if( ++meme.selectedLineIdx === meme.lines.length){
         meme.selectedLineIdx = 0
     }
 
-    renderMeme()
+    _setColorPickers(meme.lines[meme.selectedLineIdx].fill, meme.lines[meme.selectedLineIdx].stroke)
     _loadCurrLineToInputEl()
+    renderMeme()
 }
 
 function onSetFillColor(elColorPicker){
+
+    var elColorPickerIcon = document.querySelector('#fill-color-btn');
+    elColorPickerIcon.style.color = elColorPicker.value
+    setFillColor(elColorPicker.value)
+    
     var meme = getCurrMeme();
     var currLineIdx = meme.selectedLineIdx
-    var elColorPickerIcon = document.querySelector('#fill-color-btn');
+    if(currLineIdx === -1)  return
     
-    elColorPickerIcon.style.color = elColorPicker.value
     meme.lines[currLineIdx].fill = elColorPicker.value
     renderMeme()
 }
 function onSetLineColor(elColorPicker){
+
+    var elColorPickerIcon = document.querySelector('#line-color-btn');
+    elColorPickerIcon.style.color = elColorPicker.value
+    setStrokeColor(elColorPicker.value)
+    
     var meme = getCurrMeme();
     var currLineIdx = meme.selectedLineIdx
-    var elColorPickerIcon = document.querySelector('#line-color-btn');
+    if(currLineIdx === -1)  return
     
-    elColorPickerIcon.style.color = elColorPicker.value
     meme.lines[currLineIdx].stroke = elColorPicker.value
     renderMeme()
 }
 
 function onDownloadImg(){
+
     const data = gCanvas.toDataURL()
     var elLink = document.querySelector('#download-link');
     elLink.href = data
     elLink.download = 'my-img.jpg'
 }
 
+function toggleMenu() {
+    document.body.classList.toggle('menu-open');
+}
+
+// Private functions
+
+function _initToolBar(){
+    _setColorPickers()
+    _loadCurrLineToInputEl()
+    _initFontChooser()
+}
+
+function _setColorPickers(fillColor = DEFAULT_FILL, lineColor = DEFAULT_STROKE){
+    
+    var elFillColorPicker = document.querySelector('#fill-color-btn')
+    var elLineColorPicker = document.querySelector('#line-color-btn')
+    
+    elFillColorPicker.style.color = fillColor
+    elLineColorPicker.style.color = lineColor
+
+    setFillColor(fillColor)
+    setStrokeColor(lineColor)
+}
+
 function _loadCurrLineToInputEl(){
+
     var meme = getCurrMeme();
     var currLineIdx = meme.selectedLineIdx
-    var elInput = document.querySelector('[name=curr-meme-line]')
 
+    if(currLineIdx === -1) return
+
+    var elInput = document.querySelector('[name=curr-meme-line]')
     elInput.value = meme.lines[currLineIdx].txt
     elInput.select()
 }
 
-function _initToolBar(){
-    var elFillColorPicker = document.querySelector('#fill-color-picker')
-    var elLineColorPicker = document.querySelector('#line-color-picker')
-    
-    elFillColorPicker.value = DEFAULT_FILL
-    elLineColorPicker.value = DEFAULT_STROKE
-    
-    _loadCurrLineToInputEl()
+function _initFontChooser(){
 
     var elFontChooser = document.querySelector('#font-chooser')
     elFontChooser.value = gFonts[0]
@@ -183,6 +231,8 @@ function _updateAppState(strSection){
 
     var elSectionItems = document.querySelectorAll('.navbar ul li');
 
+    // Update the navbar
+
     elSectionItems.forEach(elItem => {
         if(elItem.innerText === strSection){ 
             elItem.classList.add('active-section')
@@ -190,6 +240,8 @@ function _updateAppState(strSection){
             elItem.classList.remove('active-section')
         }
     })
+
+    // Reveal relevant HTML Section and hide other sections
 
     var elGallery = document.querySelector('.gallery');
     var elEditor = document.querySelector('.editor');
@@ -215,9 +267,11 @@ function _updateAppState(strSection){
             break
     }
 
+    // When in mobile - hide the slide-in menu
+
     document.body.classList.remove('menu-open')
 }
-function initGallery(){
+function _initGallery(){
 
     var strHTML = ''
     var imgs = getImgs()
@@ -228,8 +282,4 @@ function initGallery(){
     })
 
     elGallery.innerHTML = strHTML
-}
-
-function toggleMenu() {
-    document.body.classList.toggle('menu-open');
 }

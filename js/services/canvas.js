@@ -2,45 +2,60 @@ var gCanvas = null
 var gCtx = null
 var gIsCanvasChange = true
 
+var gFillColor = '#ffffff'
+var gStrokeColor = '#000000'
 var gFontFamily = ''
 
 function initCanvas(){
     gCanvas = document.querySelector('#canvas');
     gCtx = gCanvas.getContext('2d');
     gCtx.lineWidth = 1
-    adjustCanvasSize()
-}
-
-function flagCanvasSizeChange(){
-    gIsCanvasChange = true
-}
-function adjustCanvasSize(){
-    if(window.innerWidth < 520){
-        gCtx.canvas.width = gCtx.canvas.height = 300
-    } else {
-        gCtx.canvas.width = gCtx.canvas.height = 450
-    }
+    _adjustCanvasSize()
 }
 
 function renderMeme() {
     
-    var meme = getCurrMeme()
     var img = new Image()
     var imgs = getImgs()
+    var meme = getCurrMeme()
 
-    if(gIsCanvasChange) adjustCanvasSize()
+    if(gIsCanvasChange) _adjustCanvasSize()
 
     var currImg = imgs.find(img => {
         return img.id === meme.selectedImgId
     })
 
     if(!currImg) return
-    img.src = currImg.url;
 
+    img.src = currImg.url;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height) 
         _drawText(150,150)
     }
+}
+
+function setFont(fontFamily) {
+    gFontFamily = fontFamily
+}
+
+function flagCanvasSizeChange(){
+    gIsCanvasChange = true
+}
+
+function setFillColor(color){
+    gFillColor = color
+}
+
+function setStrokeColor(color){
+    gStrokeColor = color
+}
+
+function getFillColor(){
+    return gFillColor
+}
+
+function getStrokeColor(){
+    return gStrokeColor
 }
 
 // Private functions.
@@ -87,6 +102,10 @@ function _getX(align){
     }
 }
 
-function setFont(fontFamily) {
-    gFontFamily = fontFamily
+function _adjustCanvasSize(){
+    if(window.innerWidth < 520){
+        gCtx.canvas.width = gCtx.canvas.height = 300
+    } else {
+        gCtx.canvas.width = gCtx.canvas.height = 450
+    }
 }

@@ -9,9 +9,7 @@ var gPrevViewportWidth = 0
 function init(){
     initCanvas()
     _initGallery()
-    // _initToolBar()
     _updateAppState('Gallery')
-    // renderMeme()
 }
 
 function onResize(){
@@ -194,16 +192,11 @@ function onSaveMeme(){
     
     if(!getMeme(gMeme.id)){  
         saveMeme(gMeme)
+        alert('Saved...')
     } else {
         updateMeme(gMeme) 
+        alert('Updated...')
     }
-
-    // var elMemes = document.querySelector('.memes')
-    // strHTML += `\t<img src="img/${gMeme.thumbnail}" onclick="onLoadMeme('${meme.id}')" alt=""></img>\n`
-    // <img class="puki" src="" alt="">
-
-    // var elImg = document.querySelector('.puki');
-    // elImg.src = gMeme.thumbnail
 }
 
 function onLoadMeme(memeId){
@@ -212,6 +205,8 @@ function onLoadMeme(memeId){
 
     setCurrImg(gMeme.selectedImgId)
     renderMeme()
+    _setColorPickers(gMeme.lines[gMeme.selectedLineIdx].fill, gMeme.lines[gMeme.selectedLineIdx].stroke)
+
 }
 
 function toggleMenu() {
@@ -227,7 +222,7 @@ function onSetFilter(filterStr){
 
 function _initToolBar(){
     _setColorPickers()
-    // _loadCurrLineToInputEl()
+    _loadCurrLineToInputEl()
     _initFontChooser()
 }
 

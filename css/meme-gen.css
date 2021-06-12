@@ -262,7 +262,7 @@ input{
     font-family: fa-solid;
     content: '\f019';
 }
-#thumbnail-link::before{
+#save-btn::before{
     font-family: fa-solid;
     content: '\f0c7';
 }

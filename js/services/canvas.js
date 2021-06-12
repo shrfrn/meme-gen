@@ -7,9 +7,11 @@ var gStrokeColor = '#000000'
 var gFontFamily = ''
 
 function initCanvas(){
+    
     gCanvas = document.querySelector('#canvas');
     gCtx = gCanvas.getContext('2d');
     gCtx.lineWidth = 1
+
     _adjustCanvasSize()
 }
 

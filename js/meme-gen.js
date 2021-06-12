@@ -9,9 +9,9 @@ var gPrevViewportWidth = 0
 function init(){
     initCanvas()
     _initGallery()
-    _initToolBar()
+    // _initToolBar()
     _updateAppState('Gallery')
-    renderMeme()
+    // renderMeme()
 }
 
 function onResize(){
@@ -51,11 +51,12 @@ function onSetText(elInput){
 }
 
 function onSetImage(elImg){
-
-    _updateAppState('Editor')
-
+    
     var imgId = elImg.dataset.id
+
+    createMeme()
     setCurrImg(imgId)
+    _updateAppState('Editor')
     renderMeme()
 }
 
@@ -105,6 +106,7 @@ function onChangeFont(elFontChooser){
 
     // Get the next font
     var currFontIdx = gFonts.findIndex(font => font === elFontChooser.value)
+    // if(!currFontIdx) currFontIdx = 0
     if(++currFontIdx === gFonts.length) currFontIdx = 0
 
     // Update the font chooser
@@ -177,12 +179,43 @@ function onSetLineColor(elColorPicker){
     renderMeme()
 }
 
-function onDownloadImg(){
+function onDownloadImg(fileName = 'memerrr.jpg'){
 
     const data = gCanvas.toDataURL()
     var elLink = document.querySelector('#download-link');
     elLink.href = data
-    elLink.download = 'my-img.jpg'
+    elLink.download = fileName
+    console.log('dl');
+}
+
+function onSaveMeme(){
+
+    var meme = getMeme(gMeme.id)
+    // var thumbnail = _generateThumbnailName()
+    // gMeme.thumbnail = thumbnail
+    
+    // const data = gCanvas.toDataURL()
+    // var elLink = document.querySelector('#thumbnail-link');
+    // elLink.href = data
+    // elLink.download = 'memes/' + thumbnail
+    // console.log('save');
+    
+    if(!meme){  
+        gMeme.thumbnail = gCanvas.toDataURL()
+        saveMeme(gMeme)
+    } else {
+        meme.thumbnail = gCanvas.toDataURL()
+        updateMeme(gMeme) 
+    }
+}
+
+function onLoadMeme(memeId){
+    gMeme = getMeme(memeId)
+    _updateAppState('Editor')
+
+    setCurrImg(gMeme.selectedImgId)
+    renderMeme()
+
 }
 
 function toggleMenu() {
@@ -193,7 +226,7 @@ function toggleMenu() {
 
 function _initToolBar(){
     _setColorPickers()
-    _loadCurrLineToInputEl()
+    // _loadCurrLineToInputEl()
     _initFontChooser()
 }
 
@@ -260,12 +293,14 @@ function _updateAppState(strSection){
             elGallery.style.display = 'none'
             elEditor.style.display = 'flex'
             elMemeGallery.style.display = 'none'
+            _initToolBar()
             break
 
             case 'Memes':
             elGallery.style.display = 'none'
             elEditor.style.display = 'none'
             elMemeGallery.style.display = 'grid'
+            _initMemeGallery()
             break
     }
 
@@ -277,11 +312,37 @@ function _initGallery(){
 
     var strHTML = ''
     var imgs = getImgs()
-    var elGallery = document.querySelector('.gallery')
+    var elGallery = document.querySelector('.images')
 
     imgs.forEach(img => {
         strHTML += `\t<img data-id="${img.id}" src="${img.url}" onclick="onSetImage(this)" alt=""></img>\n`
     })
 
     elGallery.innerHTML = strHTML
+}
+
+function _initMemeGallery(){
+
+    var strHTML = ''
+    var memes = loadMemes()
+    
+    if(memes.length === 0){
+        strHTML = `<h1>Nothing here yet... Save a Meme and come back.</h1>\n`
+        return 
+    } else {
+        strHTML = `<h1>Choose a Meme to edit it....</h1>\n`
+    }
+    
+    var elGallery = document.querySelector('.memes')
+
+    memes.forEach(meme => {
+        // strHTML += `\t<img data-id="${meme.id}" src=${meme.thumbnail}" onclick="onLoadMeme(${meme.id})" alt=""></img>\n`
+        strHTML += `\t<img data-id="${meme.id}" src="img/1.jpg" onclick="onLoadMeme('${meme.id}')" alt=""></img>\n`
+    })
+
+    elGallery.innerHTML = strHTML
+}
+
+function _generateThumbnailName(){
+    return makeId() + '.jpg'
 }

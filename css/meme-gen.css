@@ -104,7 +104,6 @@ body.menu-open .main-screen{
     height: 80px;
     cursor: pointer;
     padding-top: 30px;
-    /* padding-left: 26px; */
     text-align: center;
     border-left: 1px solid black;
 }
@@ -183,7 +182,6 @@ body.menu-open .main-screen{
 /* Editor toolbar input fields */
 
 .editor-controls-group > ul input{
-    /* height: 2.5rem; */
     width: 8em;
     margin-top: 2px;
     border-radius: 2em;
@@ -195,6 +193,7 @@ body.menu-open .main-screen{
 .editor-controls-group > ul > *:hover{
     border-color: lightseagreen;
 }
+
 /* Editor toolbar icons */
 
 #nudge-line-up::before{
@@ -258,17 +257,14 @@ body.menu-open .main-screen{
 #download-link::before{
     font-family: fa-solid;
     content: '\f019';
-    /* font-size: 1.1rem; */
 }
-#save-btn::before{
+#thumbnail-link::before{
     font-family: fa-solid;
     content: '\f0c7';
-    /* font-size: 1.1rem; */
 }
 #facebook-share::before{
     font-family: fa-solid;
     content: '\f1e0';
-    /* font-size: 1.1rem; */
 }
 
 /* Gallery */

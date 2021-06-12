@@ -65,8 +65,8 @@
             <div class="editor-controls-group">
                 <p>save & share:</p>
                 <ul>
-                    <li onclick="onDownloadImg()"><a id="download-link" href="#"></a></li>
-                    <li onclick="onSaveMeme()" id="save-btn"></li>
+                    <li onclick="onDownloadImg()" id="download-btn"><a id="download-link" href="#"></a></li>
+                    <li onclick="onSaveMeme()" id="save-btn"><a id="thumbnail-link" href="#"></a></li>
                     <li onclick="onShareloadImg()" id="facebook-share"></li>
                 </ul>
             </div>
@@ -119,13 +119,14 @@
         
     </section>
     
-    <section class="gallery main-layout">
+    <section class="images gallery main-layout">
     </section>
     
-    <section class="memes main-layout">
-        <h1>Meme Gallery</h1>
+    <section class="memes gallery main-layout">
+        <h1 class="memes-gallery-title">Meme Gallery</h1>
     </section>
 
+    <script src="js/services/utils.js"></script>
     <script src="js/services/storage.js"></script>
     <script src="js/services/meme-service.js"></script>
     <script src="js/services/canvas.js"></script>

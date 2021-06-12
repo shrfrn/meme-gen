@@ -1,6 +1,6 @@
 'use strict';
 
-const IMG_DB = 'meme images';
+const MEMERRR_DB = 'meme images';
 
 const DEFAULT_TEXT = 'Enter Text...'
 const DEFAULT_FONT_SIZE = 40
@@ -58,26 +58,13 @@ var gImgs = [
     },
 ]
 
-var gMeme = {
-    selectedImgId: 0,
-    selectedLineIdx: 0,
-    lines: [{
-        txt: DEFAULT_TEXT,
-        size: DEFAULT_FONT_SIZE,
-        align: DEFAULT_ALIGNMENT,
-        fill: DEFAULT_FILL,
-        stroke: DEFAULT_STROKE,
-        x: 50,
-        y: 50,
-    },
-]
-}
+var gMeme = createMeme()
 
-function getImgs(){
+function getImgs() {
     return gImgs
 }
 
-function setCurrImg(imgId){
+function setCurrImg(imgId) {
     gMeme.selectedImgId = imgId
 }
 
@@ -85,6 +72,23 @@ function getCurrMeme() {
     return gMeme;
 }
 
+function createMeme() {
+    gMeme = {
+        id: makeId(),
+        selectedImgId: 0,
+        selectedLineIdx: 0,
+        thumbnail: '',
+        lines: [{
+            txt: DEFAULT_TEXT,
+            size: DEFAULT_FONT_SIZE,
+            align: DEFAULT_ALIGNMENT,
+            fill: DEFAULT_FILL,
+            stroke: DEFAULT_STROKE,
+            x: 50,
+            y: 50,
+        }]
+    }
+}
 function createTextLine(x, y) {
 
     var line = {
@@ -99,4 +103,44 @@ function createTextLine(x, y) {
 
     gMeme.lines.push(line)
     gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+
+function loadMemes() {
+    var savedMemes = loadFromStorage(MEMERRR_DB)
+
+    if (!savedMemes) savedMemes = []
+    return savedMemes;
+}
+
+function getMeme(memeId) {
+    var savedMemes = loadMemes()
+    var savedMeme = savedMemes.find(savedMeme => savedMeme.id === memeId)
+
+    return savedMeme
+}
+
+function saveMeme(meme) {
+    var savedMemes = loadMemes()
+
+    savedMemes.push(meme)
+    saveToStorage(MEMERRR_DB, savedMemes)
+}
+
+function updateMeme(meme) {
+    var savedMemes = loadMemes()
+    var currMemeIdx = savedMemes.findIndex(savedMeme => savedMeme.id === meme.id)
+
+    // savedMemes[currMemeIdx] = JSON.parse(JSON.stringify(meme))
+    Object.assign(savedMemes[currMemeIdx], meme)
+    savedMemes[currMemeIdx].lines = []
+    meme.lines.forEach(line => savedMemes[currMemeIdx].lines.push(line))
+    saveToStorage(MEMERRR_DB, savedMemes)
+}
+
+function deleteMeme(meme) {
+    var savedMemes = loadMemes()
+    var savedMemeIdx = savedMemes.findIndex(savedMeme => savedMeme.id === meme.id)
+
+    savedMemes.splice(savedMemeIdx, 1)
+    saveToStorage(MEMERRR_DB, savedMemes)
 }

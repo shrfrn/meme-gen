@@ -285,7 +285,7 @@ function _updateAppState(strSection){
 
     switch (strSection) {
         case 'Gallery':
-            elGallery.style.display = 'grid'
+            elGallery.style.display = 'block'
             elEditor.style.display = 'none'
             elMemeGallery.style.display = 'none'
             break
@@ -313,7 +313,7 @@ function _initGallery(){
 
     var strHTML = ''
     var imgs = getImgs()
-    var elGallery = document.querySelector('.images')
+    var elGallery = document.querySelector('.image-grid')
 
     imgs.forEach(img => {
         strHTML += `\t<img data-id="${img.id}" src="${img.url}" onclick="onSetImage(this)" alt=""></img>\n`

@@ -80,8 +80,8 @@ body.menu-open .main-screen{
 /* Navbar */
 
 .main-header {
-    height: 80px;
-    margin-bottom: 40px;
+    /* height: 80px; */
+    margin-bottom: 1rem;
 }
 
 .navbar {
@@ -190,8 +190,9 @@ input{
     padding-left: 12px;
 }
 
-.image-gallery input {
+.images input {
     margin-bottom: 1rem;
+    width: 20rem;
 }
 .editor-controls-group > ul > *:hover{
     border-color: lightseagreen;
@@ -319,12 +320,6 @@ input{
 .flex-space-between {
     justify-content: space-between;
 }
-.grid-auto {
-    display: grid;
-    grid-auto-rows: minmax(300px, 1fr);
-    grid-auto-columns: minmax(300px, 1fr);
-}
-
 @media (max-width: 1000px){
     .editor{
         flex-direction: column;
@@ -332,6 +327,11 @@ input{
     }
 }
 @media (max-width: 520px){
+
+    .main-header{
+        height: inherit;
+        margin-bottom: 5px;
+    }
 
     .hamburger{
         display: flex;
@@ -351,7 +351,6 @@ input{
         border-inline-start: 1px solid rgb(36, 36, 36);
         background-color: rgb(60 60 60 / 90%);
         width: 200px;
-        /* display: none; */
         transform: translateX(100%);
         transition: transform .6s;
     }
@@ -367,11 +366,17 @@ input{
     body.menu-open .navbar ul {
         transform: translateX(0);
     }
-
+    .images input {
+        margin: 1rem;
+    }
+    .gallery{
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-auto-rows: 100px;
+        padding: 20px auto;
+    }
     .editor-controls {
         display: none;
     }
-    
     .editor-controls-mobile {
         display: block;
     }

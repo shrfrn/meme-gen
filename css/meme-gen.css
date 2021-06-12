@@ -181,7 +181,7 @@ body.menu-open .main-screen{
 
 /* Editor toolbar input fields */
 
-.editor-controls-group > ul input{
+input{
     width: 8em;
     margin-top: 2px;
     border-radius: 2em;
@@ -190,6 +190,9 @@ body.menu-open .main-screen{
     padding-left: 12px;
 }
 
+.image-gallery input {
+    margin-bottom: 1rem;
+}
 .editor-controls-group > ul > *:hover{
     border-color: lightseagreen;
 }

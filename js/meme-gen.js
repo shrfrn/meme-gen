@@ -190,23 +190,20 @@ function onDownloadImg(fileName = 'memerrr.jpg'){
 
 function onSaveMeme(){
 
-    var meme = getMeme(gMeme.id)
-    // var thumbnail = _generateThumbnailName()
-    // gMeme.thumbnail = thumbnail
+    gMeme.thumbnail = gCanvas.toDataURL()
     
-    // const data = gCanvas.toDataURL()
-    // var elLink = document.querySelector('#thumbnail-link');
-    // elLink.href = data
-    // elLink.download = 'memes/' + thumbnail
-    // console.log('save');
-    
-    if(!meme){  
-        gMeme.thumbnail = gCanvas.toDataURL()
+    if(!getMeme(gMeme.id)){  
         saveMeme(gMeme)
     } else {
-        meme.thumbnail = gCanvas.toDataURL()
         updateMeme(gMeme) 
     }
+
+    // var elMemes = document.querySelector('.memes')
+    // strHTML += `\t<img src="img/${gMeme.thumbnail}" onclick="onLoadMeme('${meme.id}')" alt=""></img>\n`
+    // <img class="puki" src="" alt="">
+
+    // var elImg = document.querySelector('.puki');
+    // elImg.src = gMeme.thumbnail
 }
 
 function onLoadMeme(memeId){
@@ -215,11 +212,15 @@ function onLoadMeme(memeId){
 
     setCurrImg(gMeme.selectedImgId)
     renderMeme()
-
 }
 
 function toggleMenu() {
     document.body.classList.toggle('menu-open');
+}
+
+function onSetFilter(filterStr){
+    setFilter(filterStr);
+    _initGallery();
 }
 
 // Private functions
@@ -278,7 +279,7 @@ function _updateAppState(strSection){
 
     // Reveal relevant HTML Section and hide other sections
 
-    var elGallery = document.querySelector('.gallery');
+    var elGallery = document.querySelector('.images');
     var elEditor = document.querySelector('.editor');
     var elMemeGallery = document.querySelector('.memes');
 
@@ -326,18 +327,18 @@ function _initMemeGallery(){
     var strHTML = ''
     var memes = loadMemes()
     
-    if(memes.length === 0){
-        strHTML = `<h1>Nothing here yet... Save a Meme and come back.</h1>\n`
-        return 
-    } else {
-        strHTML = `<h1>Choose a Meme to edit it....</h1>\n`
-    }
+    // if(memes.length === 0){
+    //     strHTML = `<h1>Nothing here yet... Save a Meme and come back.</h1>\n`
+    //     return 
+    // } else {
+    //     strHTML = `<h1>Choose a Meme to edit it....</h1>\n`
+    // }
     
     var elGallery = document.querySelector('.memes')
 
     memes.forEach(meme => {
         // strHTML += `\t<img data-id="${meme.id}" src=${meme.thumbnail}" onclick="onLoadMeme(${meme.id})" alt=""></img>\n`
-        strHTML += `\t<img data-id="${meme.id}" src="img/1.jpg" onclick="onLoadMeme('${meme.id}')" alt=""></img>\n`
+        strHTML += `\t<img data-id="${meme.id}" src="${meme.thumbnail}" onclick="onLoadMeme('${meme.id}')" alt=""></img>\n`
     })
 
     elGallery.innerHTML = strHTML

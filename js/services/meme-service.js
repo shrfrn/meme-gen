@@ -8,60 +8,72 @@ const DEFAULT_ALIGNMENT = 'left'
 const DEFAULT_FILL = '#ffffff'
 const DEFAULT_STROKE = '#000000'
 
-var gKeywords = { 'happy': 12, 'funny puk': 1 }
-
+// var gKeywords = { 'happy': 12, 'funny puk': 1 }
+var gFilterBy = ''
 var gImgs = [
     {
         id: "2",
         url: 'img/2.jpg',
-        keywords: ['happy']
+        keywords: ['dog', 'dogs', 'puppies', 'cute']
     },
     {
         id: "3",
         url: 'img/3.jpg',
-        keywords: ['happy']
+        keywords: ['baby', 'dog', 'cute']
     },
     {
         id: "4",
         url: 'img/4.jpg',
-        keywords: ['happy']
+        keywords: ['cat', 'cute']
     },
     {
         id: "5",
         url: 'img/5.jpg',
-        keywords: ['happy']
+        keywords: ['funny', 'child']
     },
     {
         id: "6",
         url: 'img/6.jpg',
-        keywords: ['happy']
+        keywords: ['funny', 'hair']
     },
     {
         id: "7",
         url: 'img/7.jpg',
-        keywords: ['happy']
+        keywords: ['funny', 'child', 'big eyes']
     },
     {
         id: "8",
         url: 'img/8.jpg',
-        keywords: ['happy']
+        keywords: ['man']
     },
     {
         id: "9",
         url: 'img/9.jpg',
-        keywords: ['happy']
+        keywords: ['child', 'funny']
     },
     {
         id: "1",
         url: 'img/1.jpg',
-        keywords: ['happy']
+        keywords: ['crazy']
     },
 ]
 
 var gMeme = createMeme()
 
+function setFilter(filterStr){
+    gFilterBy = filterStr
+}
+
 function getImgs() {
-    return gImgs
+
+    if(gFilterBy === '') return gImgs
+
+    var regex = new RegExp(gFilterBy, 'i')
+    var imgs = gImgs.filter(img =>
+        img.keywords.find(line => regex.test(line))
+    )
+
+    return imgs
 }
 
 function setCurrImg(imgId) {
